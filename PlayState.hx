@@ -1116,7 +1116,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
-		judgementCounter = new FlxText(20, 0, 0, "", 20); judgementCounter.setFormat(Paths.font("vcr.ttf"), 20, 0xFFFF0000, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK); judgementCounter.borderSize = 2; judgementCounter.borderQuality = 2; judgementCounter.scrollFactor.set(); judgementCounter.cameras = [camHUD]; judgementCounter.screenCenter(Y); judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${songMisses}'; if (ClientPrefs.judgementCounter) { add(judgementCounter); }
+		judgementCounter = new FlxText(20, 0, 0, "", 20); judgementCounter.setFormat(Paths.font("vcr.ttf"), 20, 0xFFFF0000, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK); judgementCounter.borderSize = 2; judgementCounter.borderQuality = 2; judgementCounter.scrollFactor.set(); judgementCounter.cameras = [camHUD]; judgementCounter.screenCenter(Y); judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nbf Breaks: ${songMisses}'; if (ClientPrefs.judgementCounter) { add(judgementCounter); }
 		add(scoreTxt);
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "fahadGX WOW", 32);
@@ -2415,9 +2415,9 @@ class PlayState extends MusicBeatState
 		super.update(elapsed);
 
 		if(ratingName == '?') {
-			scoreTxt.text = 'Score: ' + songScore + ' | bf Breaks: ' + songMisses + ' | Accuracy: ' + ratingName;
+			scoreTxt.text = 'combo: ' + combo + ' Score: ' + songScore + ' | bf Breaks: ' + songMisses + ' | Accuracy: ' + ratingName;
 		} else {
-			scoreTxt.text = 'Score: ' + songScore + ' | bf Breaks: ' + songMisses + ' | Accuracy: ' + ratingName + ' (' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%)' + ' - ' + ratingFC;//peeps wanted no integer rating
+			scoreTxt.text = 'combo: ' + combo + ' Score: ' + songScore + ' | bf Breaks: ' + songMisses + ' | Accuracy: ' + ratingName + ' (' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%)' + ' - ' + ratingFC;//peeps wanted no integer rating
 		}
 
 		if(botplayTxt.visible) {
@@ -4049,7 +4049,7 @@ class PlayState extends MusicBeatState
 			{
 				combo += 1;
 				popUpScore(note);
-				if(combo > 9999) combo = 9999;
+				if(combo > 1000000000) combo = 1000000000;
 			}
 			health += note.hitHealth * healthGain;
 
@@ -4534,6 +4534,7 @@ class PlayState extends MusicBeatState
 		setOnLuas('score', songScore);
 		setOnLuas('misses', songMisses);
 		setOnLuas('hits', songHits);
+		setOnLuas('combo', combo);
 
 		var ret:Dynamic = callOnLuas('onRecalculateRating', []);
 		if(ret != FunkinLua.Function_Stop)
@@ -4576,7 +4577,7 @@ class PlayState extends MusicBeatState
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
 
-		judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${songMisses}';
+		judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nbf Breaks: ${songMisses}';
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
