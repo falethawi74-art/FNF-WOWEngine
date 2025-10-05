@@ -27,12 +27,15 @@ class ClientPrefs {
 	public static var imagesPersist:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Left';
+	public static var iconBounceType:String = 'Strident Crisis';
 	public static var watermarkStyle:String = 'WOW';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
 	public static var controllerMode:Bool = false;
 	public static var hitsoundVolume:Float = 0;
+	public static var underlaneVisibility:Float = 0;
+	public static var opponentUnderlaneVisibility:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -130,6 +133,7 @@ class ClientPrefs {
 		FlxG.save.data.gameplaySettings = gameplaySettings;
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
+		FlxG.save.data.underlaneVisibility = underlaneVisibility;
 		FlxG.save.data.pauseMusic = pauseMusic;
 	
 		FlxG.save.flush();
@@ -242,6 +246,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hitsoundVolume != null) {
 			hitsoundVolume = FlxG.save.data.hitsoundVolume;
+		}
+		if(FlxG.save.data.underlaneVisibility != null) {
+			underlaneVisibility = FlxG.save.data.underlaneVisibility;
+		}
+		if(FlxG.save.data.OpponentUnderlaneVisibility != null) {
+			opponentUnderlaneVisibility = FlxG.save.data.OpponentUnderlaneVisibility;
 		}
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
